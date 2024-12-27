@@ -3,6 +3,9 @@
   "name": "PCPartPicker Custom Images",
   "version": "1.0",
   "description": "An extension to set images for custom PCPartPicker components.",
+  "permissions": [
+    "storage"
+  ],
   "content_scripts": [
     {
       "matches": ["*://*.pcpartpicker.com/list*"],
