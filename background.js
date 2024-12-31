@@ -1,16 +1,16 @@
 document.body.style.border = "5px solid red";
 
 loadImages = () => {
-    image_anchors = document.querySelectorAll(".tr__product:not(.tr__product--another)>.td__image>a[href='#view_custom_part']");
-    image_anchors.forEach((image_anchor) => {
-        id = image_anchor.getAttribute("onclick").split("'")[1].split("-")[0];
-        image_url = localStorage.getItem(id);
+    custom_products = document.querySelectorAll(".tr__product:not(.tr__product--another):has(.td__name>a[href='#view_custom_part'])");
+    custom_products.forEach((p) => {
+        part_name = p.querySelector(".td__name").innerText.replace(/[^\x00-\x7F]/g, "");
+        image_url = localStorage.getItem(part_name);
         if (image_url) {
-            image_anchor.childNodes[0].setAttribute("src", image_url);
+            p.querySelector(".td__image>a>img").setAttribute("src", image_url);
             console.log("added image")
         }
         else {
-            console.log("couldnt load image " + image_url)
+            console.log("couldnt load image " + part_name)
         }
     })
 }
@@ -22,9 +22,10 @@ add_image_url_field.innerHTML = "<label class='show'>Custom Image URL: </label><
 
 button = document.getElementById("add_custom_submit")
 button.addEventListener("click", () => {
-    id = document.getElementById("add_custom_id").getAttribute("value");
+    part_name = document.getElementById("add_custom_name").value.replace(/[^\x00-\x7F]/g, "");
     url = document.getElementById("add_custom_image").value;
-    localStorage.setItem(id, url);
+    console.log(part_name, url);
+    localStorage.setItem(part_name, url);
 })
 
 dialog = document.getElementById("partlist_upp_dialog")
